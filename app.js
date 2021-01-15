@@ -32,6 +32,7 @@ const cas = new CASAuthentication({
 
 app.get('/authenticate', cas.bounce, (req, res) => {
     let token = jwt.sign(req.session.cas_userinfo, process.env.JWT_PRIVATE_KEY)
+    req.session.destroy()
     res.redirect(`http://localhost:3000/validate?token=${token}`)
 })
 
